@@ -12,6 +12,10 @@ function confirm($result){
     }
 }
 
+function redirect($location){
+    header("Location: $location ");
+}
+
 function clear_reg_sessions(){
     unset($_SESSION['reg_username']);
     unset($_SESSION['reg_fname']);
