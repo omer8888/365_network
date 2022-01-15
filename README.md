@@ -14,6 +14,7 @@ verify errors, <br>
 entering the user detail to the USERS table, <br>
 db connection defined in "config.php" which is required in the "register.php" <br>
 inserting the info into users table using mysqli sql query. <br>
+passwords are encrypted using md5 <br>
 <br>
 
 <h3>Signup Form error type:</h3>
@@ -45,5 +46,18 @@ im unsetting the form input sessions inorder to free the memory.  <br>
 That's means the form is valid, <br>
 im inserting the user inputs into the db <br>
 
+<h3>Login form </h3>
+clicking on login submit sending post request to the same page <br>
+which requiring the "login_handler.php", which doing all the server side login magic: <br>
+verifys the username/email exists <br>
+if not exists sets $login_error into the relevant error <br>
+(errors strings are constant from "errors_msgs.php")
+then the HTML login form loads we verify if there is error by checking if $login_error is set <br>
+
+<h3> if the user email/user name exists in the users table</h3>
+we extract this user info (db row)<br>
+we verify the passwords are the same<br>
+(passwords are encrypted md5) <br>
+
 <h3>abit about the register css</h3>
-fonts, background photo are on the resources folder.
+fonts, background photo are on the resources folder. <br>
