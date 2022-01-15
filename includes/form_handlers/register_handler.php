@@ -63,7 +63,7 @@ if(isset($_POST['reg_submit'])) {
     //inserting the user info to the DB
     if(empty($error_array)){
         $reg_pass = md5($reg_pass); // Encrypt the pass
-        $query = query("INSERT INTO USERS (id,first_name,last_name,user_name,email,password,signup_date,profile_pic,num_posts,num_likes,private_acc,friend_array)
+        $query = query("INSERT INTO USERS (id,first_name,last_name,user_name,email,password,signup_date,profile_pic,num_posts,num_likes,user_closed,friend_array)
          VALUES ('', '{$reg_fname}', '{$reg_lname}', '{$reg_username}', '{$reg_email}', '{$reg_pass}', '{$reg_date}', '{$reg_profile_pic}', '0', '0', 'no', 'null')");
         confirm($query);
         $reg_status = "completed";

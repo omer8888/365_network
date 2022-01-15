@@ -12,7 +12,7 @@ require_once("includes/form_handlers/login_handler.php");
 <body>
 
 <form action="" method="POST">
-    <input type="text" name="login_email_or_username" placeholder="Email/Username" value="<?php if(isset($_SESSION['login_email_or_username'])) echo $_SESSION['login_email_or_username']; ?>">
+    <input type="text" name="login_email_or_username" placeholder="Email/Username" required value="<?php if(isset($_SESSION['login_email_or_username'])) echo $_SESSION['login_email_or_username']; ?>">
     <br>
     <input type="password" name="login_pass" placeholder="Password">
     <br>
