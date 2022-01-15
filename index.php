@@ -1,10 +1,4 @@
 <?php
-    $con= mysqli_connect("localhost","root","","365_db");
-    if(mysqli_connect_errno()){
-        echo "db connction error" . mysqli_connect_errno();
-    }
-    $name='omer';
-    $query= mysqli_query($con,"INSERT INTO test VALUES ('', '{$name}')");
 
     echo "Hello from 365";
 
