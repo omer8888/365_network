@@ -12,5 +12,5 @@ define("PASS_NOT_MATCH",     "Passwords dont match");
 define("PASS_FORMAT",     "Password should contain only numbers and letters");
 
 //login
-define("USERNAME_OR_EMAIL_NOT_EXIST",     "username/email dosent exist");
+define("USERNAME_OR_EMAIL_NOT_EXIST",     "Username/Email dosent exist");
 define("WRONG_PASS",     "wrong password");

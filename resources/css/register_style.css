@@ -36,7 +36,7 @@ body{
     position: relative;
     margin-right: 28%;
     margin-left: auto;
-    top: 32%;
+    top: 30%;
     width:30%;
 }
 
@@ -55,14 +55,14 @@ body{
 
 .login_header h3{
     font-family: 'CooperHewitt-Medium', sans-serif;
-    margin-top: 21px;
+    margin-top: 19px;
     margin-bottom: 0;
     text-align: center;
 }
 
 .login_header{
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 input[type="submit"]{
@@ -84,4 +84,9 @@ input[type="text"],input[type="email"],input[type="password"]{
 
 input[type="text"]:hover, input[type="email"]:hover, input[type="password"]:hover{
     border-color: #bad2f8;
+}
+
+div.form_error{
+    font-size: 12px;
+    color: red;
 }
