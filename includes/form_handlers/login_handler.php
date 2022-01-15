@@ -16,7 +16,9 @@ if(isset($_POST['login_submit'])) {
                 echo "in";
                 $query=query("UPDATE USERS SET USER_CLOSED = 'no' WHERE USER_NAME='{$user['user_name']}'");
             }
+
             redirect("index.php");
+            clear_reg_sessions();
         }
         else{
             $login_error = WRONG_PASS;
