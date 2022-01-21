@@ -9,13 +9,25 @@ require_once("includes/form_handlers/login_handler.php");
 <head>
     <title>Register to 365 Network</title>
     <link rel="stylesheet" href="resources/css/register_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="resources/js/register.js"></script>
 </head>
 <body>
-
+    <?php //keep the login form open in case there will be error
+        if(isset($_POST['login_submit'])){
+            echo '
+            <script>    
+                    $(document).ready(function (){
+                        $("#login_form").show();
+                    });
+            </script>
+            ';
+        }
+    ?>
     <div class="wrapper">
         <div class="register_box">
             <div class="register_header">
-                <h2>Welcome to 365 Network</h2>
+                <h2>365 Network</h2>
                 Signup for free now!
             </div>
 
@@ -64,17 +76,18 @@ require_once("includes/form_handlers/login_handler.php");
 
             <div class="login_header">
                 <h3>Already a member?</h3>
-                Login to your account!
+                <a href="#" id="already_a_member_link">Login to your account!</a>
             </div>
-
-            <form action="" method="POST">
-                <input type="text" name="login_email_or_username" placeholder="Email/Username" required value="<?php if(isset($_SESSION['login_email_or_username'])) echo $_SESSION['login_email_or_username']; ?>">
-                <br>
-                <input type="password" name="login_pass" placeholder="Password">
-                <br>
-                <input type="submit" name="login_submit" value="Login">
-                <div class="form_error"><?php if(isset($login_error)){echo $login_error; } ?></div>
-            </form>
+            <div id="login_form">
+                <form action="" method="POST">
+                    <input type="text" name="login_email_or_username" placeholder="Email/Username" required value="<?php if(isset($_SESSION['login_email_or_username'])) echo $_SESSION['login_email_or_username']; ?>">
+                    <br>
+                    <input type="password" name="login_pass" placeholder="Password">
+                    <br>
+                    <input type="submit" name="login_submit" value="Login">
+                    <div class="form_error"><?php if(isset($login_error)){echo $login_error; } ?></div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
