@@ -8,7 +8,7 @@ if(isset($_POST['reg_submit'])) {
     $_SESSION['reg_email2'] = $reg_email2 = ucfirst(strtolower(strip_tags($_POST['reg_email2'])));
     $_SESSION['reg_pass'] = $reg_pass = strip_tags($_POST['reg_pass']);
     $_SESSION['reg_pass2'] = $reg_pass2 = strip_tags($_POST['reg_pass2']);
-    $reg_date = date("Y/m/d");
+    $reg_date = date("y/m/d");
     $_SESSION['reg_profile_pic'] = $reg_profile_pic = null;
 
     $error_array = array();
@@ -56,8 +56,8 @@ if(isset($_POST['reg_submit'])) {
         array_push($error_array, USERNAME_EXIST);
     }
 
-    $rand_profile_num = rand(1,8);
-    $reg_profile_pic = "resources/images/profile_pics/defaults/default$rand_profile_num";
+    $rand_profile_num = rand(1,8); // setting random profile photo
+    $reg_profile_pic = "resources/images/profile_pics/defaults/default$rand_profile_num.png";
 
 
     //inserting the user info to the DB

@@ -2,10 +2,9 @@
 require_once("resources/config.php");
 
 if(isset($_SESSION['user_name'])){
-    $userLoggedIn = $_SESSION['user_name'];
-    $query = query("SELECT * FROM USERS WHERE USER_NAME='{$_SESSION['user_name']}'");
+    $query = query("SELECT * FROM USERS WHERE USER_NAME='{$_SESSION['user_name']}'"); //using the global user name to get access to all the user info
     confirm($query);
-    $LoggedInUser = mysqli_fetch_array($query);
+    $user = mysqli_fetch_array($query);
 }
 else{
     redirect("index.php");
@@ -35,7 +34,7 @@ else{
 
         <nav>
             <a href="">
-                <?php echo $LoggedInUser['first_name'] ;?>
+                <?php echo $user['first_name'] ;?>
             </a>
             <a href="index.php">
                 <i class="fa fa-home fa-lg"></i>
@@ -54,4 +53,5 @@ else{
             </a>
         </nav>
     </div>
+    <div class="wrapper">
 

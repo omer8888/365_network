@@ -6,11 +6,11 @@ if(isset($_POST['login_submit'])) {
 
     $query=query("SELECT * FROM USERS WHERE EMAIL='{$login_email_or_username}' OR USER_NAME='{$login_email_or_username}'");
     confirm($query);
-    if(mysqli_num_rows($query)==0) {
+    if(mysqli_num_rows($query)==0) { // cant find user with this user name or email
         $login_error= USERNAME_OR_EMAIL_NOT_EXIST;}
     else{
         $user = mysqli_fetch_array($query);
-        if($user['password']==$login_pass){
+        if($user['password']==$login_pass){ // checking password
             $_SESSION['user_name'] =$user['user_name'];
             if($user['user_closed']=='yes'){ // setting user as connected
                 echo "in";
@@ -20,7 +20,7 @@ if(isset($_POST['login_submit'])) {
             redirect("index.php");
             clear_reg_sessions();
         }
-        else{
+        else{ // wrong pass
             $login_error = WRONG_PASS;
         }
     }
