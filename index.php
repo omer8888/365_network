@@ -1,14 +1,8 @@
-<?php
-
-    echo "Hello from 365";
+<?php include("includes/header.php");
+//session_destroy();
 
 ?>
 
-<html>
-<head>
-    <title>365 Network</title>
-</head>
-<body>
 
 </body>
 </html>

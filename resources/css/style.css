@@ -1,0 +1,60 @@
+@font-face{
+    font-family: 'CooperHewitt-Book';
+    src: url("../fonts/CooperHewitt-Book.otf");
+}
+
+@font-face{
+    font-family: 'CooperHewitt-Medium';
+    src: url("../fonts/CooperHewitt-Medium.otf");
+}
+
+@font-face{
+    font-family: 'CooperHewitt-Semibold';
+    src: url("../fonts/CooperHewitt-Semibold.otf");
+}
+
+.top_bar{
+    width: 100%;
+    min-width: 1050px;
+    height: 40px;
+    background-color: #63b8ec;
+    border-bottom: 0.25em solid #42a0ce;
+    margin: 0 0 10px 0;
+    display: inline-flex;
+}
+
+.logo a{
+    font-family: 'CooperHewitt-Medium', sans-serif;
+    font-size: 20px;
+    top: 4px;
+    left: 30px;
+    margin: 3px 0 0 10px;
+    position: relative;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+nav{
+    top: 4px;
+    float: right;
+    right:  40px;
+    position: absolute;
+}
+
+nav a{
+    position: relative;
+    margin: 3px 0 0 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+nav a:hover{
+    border-bottom: 2px solid #bdc2e3;
+    color: #375a92;
+    text-decoration: none;
+}
