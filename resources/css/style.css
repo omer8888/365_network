@@ -82,22 +82,47 @@ nav a:hover{
     z-index: -1;
 }
 
-.user_details{
+.user_details_box{
     width: 320px;
     float: left;
     margin-bottom: 20px;
 }
 
-.user_details_text{
+.user_details_box_text{
     padding: 10px;
     width: 180px;
     display: inline;
     position: absolute;
 }
 
-.user_details img{
+.user_details_box img{
     width: 125px;
     height: 125px;
     border-radius: 10px;
     margin-right: 5px;
+}
+
+.main_box{
+    width: 70%;
+    z-index: -1;
+    min-height: 160px;
+    float: right;
+}
+
+.post_form{
+    width: 100%;
+    height: 600px;
+}
+
+.post_form textarea{
+    width: 80%;
+    height: 60px;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: 2px solid #DFDFDF;
+    font-size: 20px;
+}
+
+textarea:focus{
+    outline: 0;
 }
