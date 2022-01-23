@@ -40,6 +40,17 @@ body{
     color: #ffffff;
 }
 
+.logo_slogan{
+    font-family: 'CooperHewitt-Book', sans-serif;
+    font-size: 12px;
+    top: 10px;
+    left: 30px;
+    margin: 3px 0 0 10px;
+    position: relative;
+    text-decoration: none;
+    color: #ffffff;
+}
+
 a:hover{
     text-decoration: none;
 }
@@ -66,11 +77,11 @@ nav a:hover{
 
 .wrapper{
     margin: 0 auto;
-    top: 50px;
+    top: 55px;
     position: relative;
     padding: 0 10px;
-    width: 75%;
-    min-width: 950px;
+    width: 65%;
+    min-width: 850px;
 }
 
 .column{
@@ -83,9 +94,10 @@ nav a:hover{
 }
 
 .user_details_box{
-    width: 320px;
+    width: 300px;
     float: left;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .user_details_box_text{
@@ -115,14 +127,33 @@ nav a:hover{
 }
 
 .post_form textarea{
-    width: 80%;
+    width: 81%;
     height: 60px;
     border-radius: 5px;
     margin-right: 5px;
     border: 2px solid #DFDFDF;
     font-size: 20px;
+    padding: 5px;
 }
 
 textarea:focus{
     outline: 0;
+}
+
+.post_form input[type="submit"]{
+    font-family: 'CooperHewitt-Book', sans-serif;
+    width:11%;
+    height: 60px;
+    border: none;
+    border-radius: 7px;
+    background-color: #87cbf1;
+    text-shadow: #73E6E2 1px 1px 0px;
+    font-size: 90%;
+    position: absolute;
+    outline: 0;
+    margin:0 ;
+}
+
+.post_form input[type="submit"]:active {
+    padding: 5px 4px 4px 5px;
 }

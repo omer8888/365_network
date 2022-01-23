@@ -1,13 +1,13 @@
 <?php
 require_once("resources/config.php");
 
-if(isset($_SESSION['user_name'])){
+if(isset($_SESSION['user_name'])){ // verifying user logged in
     $query = query("SELECT * FROM USERS WHERE USER_NAME='{$_SESSION['user_name']}'"); //using the global user name to get access to all the user info
     confirm($query);
     $user = mysqli_fetch_array($query);
 }
 else{
-    redirect("index.php");
+    redirect("register.php");
 }
 
 ?>
@@ -16,8 +16,8 @@ else{
     <title>365 Network</title>
 
     <!-- Javascript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="resources/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  <!-- js: for the login slide -->
+    <script src="resources/js/bootstrap.js"></script> <!-- bootstrap resources : for the header buttons -->
 
     <!-- Css -->
     <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
@@ -29,9 +29,9 @@ else{
 
     <div class="top_bar">
         <div class="logo">
-            <a href="index.php">365 network</a>
+            <a href="index.php">365 Network</a>
         </div>
-
+        <div class="logo_slogan">Let's connect</div>
         <nav>
             <a href="">
                 <?php echo $user['first_name'] ;?>
@@ -50,6 +50,9 @@ else{
             </a>
             <a href="">
                 <i class="fa fa-cog fa-lg"></i>
+            </a>
+            <a href="">
+                <i class="fa fa-power-off fa-lg"></i>
             </a>
         </nav>
     </div>
