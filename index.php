@@ -1,4 +1,7 @@
-<?php include("includes/header.php"); ?>
+<?php
+    require_once("includes/header.php");
+    global $user_obj; // to be able to use the logged in user object
+    ?>
 
 <!-- user info box -->
     <div class="user_details_box column">
@@ -8,7 +11,7 @@
 
         <div class="user_details_box_text">
             <b><a href="<?php echo $user['user_name'] ?>">
-                <?php echo $user['first_name']." ".$user['last_name'] ;?>
+                <?php echo $user_obj->getFirstAndLastName(); ?>
             </a></b>
             <br>
             <?php  echo "Posts : ".$user['num_posts'].""; ?>

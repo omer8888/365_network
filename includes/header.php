@@ -1,10 +1,10 @@
 <?php
 require_once("resources/config.php");
+include("includes/classes/users.php");
 
 if(isset($_SESSION['logged_in_user_id'])){ // verifying user logged in
-    $query = query("SELECT * FROM USERS WHERE ID='{$_SESSION['logged_in_user_id']}'"); //using the global user id to get access to all the user info
-    confirm($query);
-    $user = mysqli_fetch_array($query);
+    $user_obj = new User($_SESSION['logged_in_user_id']);
+    $user = $user_obj->get_user_info();
 }
 else{
     redirect("register.php");

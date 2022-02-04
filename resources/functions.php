@@ -1,5 +1,10 @@
 <?php
 
+function get_connection(){
+    global $connection;
+    return $connection;
+}
+
 function query($sql){
     global $connection;
     return mysqli_query($connection, $sql);
