@@ -17,6 +17,11 @@ function confirm($result){
     }
 }
 
+function get_last_id(){
+    global $connection;
+    return mysqli_insert_id($connection);
+}
+
 function redirect($location){
     header("Location: $location ");
 }

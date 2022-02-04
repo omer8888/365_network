@@ -3,10 +3,10 @@ require_once("resources/config.php");
 include("includes/classes/users.php");
 
 if(isset($_SESSION['logged_in_user_id'])){ // verifying user logged in
-    $user_obj = new User($_SESSION['logged_in_user_id']);
-    $user = $user_obj->get_user_info();
+    $user_obj = new User($_SESSION['logged_in_user_id']); // crete new user object
+    $user = $user_obj->get_user_info(); // set user info array
 }
-else{
+else{ // if user not logged in: redirect to register
     redirect("register.php");
 }
 ?>
