@@ -1,13 +1,13 @@
 <?php
     require("includes/header.php");
-    require("includes/classes/Posts.php");
+    require("includes/classes/Post.php");
 
     global $user_obj; // to be able to use the logged in user object
 
         if(isset($_POST['post'])) // if use clicked on post status
         {
-            $post = new Post($user_obj->get_user_id()); // created new post instance with the current sender user
-            $post->submitPost($_POST['post_text'], 'none'); // updating the posts table with the post body
+            $post = new Post($user_obj->get_user_id(),$_POST['post_text']); // created new post instance with the current sender user
+            $post->submitPost(); // updating the posts table with the post body
         }
 ?>
 
