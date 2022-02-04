@@ -1,21 +1,26 @@
-<?php include("includes/header.php");
-//session_destroy();
-?>
+<?php include("includes/header.php"); ?>
 
+<!-- user info box -->
     <div class="user_details_box column">
-        <img src="<?php echo $user['profile_pic'];?>">
+        <a href="<?php echo $user['user_name'] ?>">
+            <img src="<?php echo $user['profile_pic'];?>">
+        </a>
 
         <div class="user_details_box_text">
-            <b><?php echo $user['first_name']." ".$user['last_name'] ;?></b>
+            <b><a href="<?php echo $user['user_name'] ?>">
+                <?php echo $user['first_name']." ".$user['last_name'] ;?>
+            </a></b>
             <br>
-            <?php  echo "Total posts : ".$user['num_posts'].""; ?>
+            <?php  echo "Posts : ".$user['num_posts'].""; ?>
             <br>
-            <?php  echo "Total Likes : ".$user['num_likes']."";  ?>
+            <?php  echo "Likes : ".$user['num_likes']."";  ?>
             <br>
             <?php  echo "Since : ".$user['signup_date']."";  ?>
         </div>
     </div>
 
+
+<!-- main box -->
     <div class="main_box column">
             <form class="post_form" action=index.php" method="POST">
                 <textarea name=post_text" id="post_text" placeholder="What do you want to say?"></textarea>

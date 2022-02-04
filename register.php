@@ -10,10 +10,10 @@ require_once("includes/form_handlers/login_handler.php");
     <title>Register to 365 Network</title>
     <link rel="stylesheet" href="resources/css/register_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="resources/js/register.js"></script>
+    <script src="resources/js/register.js"></script> <!-- js file for the Login animation -->
 </head>
 <body>
-    <?php //keep the login form open in case there will be error
+    <?php //keep the login form open in case there will be error using JS
         if(isset($_POST['login_submit'])){
             echo '
             <script>    
@@ -28,13 +28,13 @@ require_once("includes/form_handlers/login_handler.php");
         <div class="register_box">
             <div class="register_header">
                 <h2>365 Network</h2>
-                Signup for free now!
+                Signup for free
             </div>
 
             <form action="" method="POST">
                 <input type="text" name="reg_username" placeholder="User Name" value="<?php if(isset($_SESSION['reg_username'])) echo $_SESSION['reg_username']; ?>">
                 <div class="form_error">
-                    <?php if(in_array( USERNAME_LENGTH, $error_array)) echo USERNAME_LENGTH;
+                    <?php if(in_array( USERNAME_LENGTH, $error_array)) echo USERNAME_LENGTH; // checking if any of user name errors are in the form errors array
                           elseif (in_array( USERNAME_EXIST, $error_array)) echo USERNAME_EXIST; ?>
                 </div>
                 <input type="text" name="reg_fname" placeholder="First Name" required value="<?php if(isset($_SESSION['reg_fname'])) echo $_SESSION['reg_fname']; ?>">
@@ -70,7 +70,7 @@ require_once("includes/form_handlers/login_handler.php");
                 </div>
 
                 <input type="submit" name="reg_submit" value="Register">
-                <?php if(isset($reg_status)){echo "<br><span style='color: #14CB00'>Signup completed!</span>"; } ?>
+                <?php if(isset($reg_status)){echo "<br><span style='color: #14CB00'>Signup completed!</span>"; } //presenting green msg after signup?>
             </form>
 
 

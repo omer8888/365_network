@@ -1,16 +1,16 @@
 <?php
 require_once("resources/config.php");
 
-if(isset($_SESSION['user_name'])){ // verifying user logged in
-    $query = query("SELECT * FROM USERS WHERE USER_NAME='{$_SESSION['user_name']}'"); //using the global user name to get access to all the user info
+if(isset($_SESSION['logged_in_user_id'])){ // verifying user logged in
+    $query = query("SELECT * FROM USERS WHERE ID='{$_SESSION['logged_in_user_id']}'"); //using the global user id to get access to all the user info
     confirm($query);
     $user = mysqli_fetch_array($query);
 }
 else{
     redirect("register.php");
 }
-
 ?>
+
 <html>
 <head>
     <title>365 Network</title>
@@ -26,11 +26,13 @@ else{
 
 </head>
 <body>
-
+    <!-- Logo -->
     <div class="top_bar">
         <div class="logo">
             <a href="index.php">365 Network</a>
         </div>
+
+        <!-- Top Bar icons links -->
         <div class="logo_slogan">Let's connect</div>
         <nav>
             <a href="">

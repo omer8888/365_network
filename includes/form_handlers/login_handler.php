@@ -9,11 +9,10 @@ if(isset($_POST['login_submit'])) {
     if(mysqli_num_rows($query)==0) { // cant find user with this user name or email
         $login_error= USERNAME_OR_EMAIL_NOT_EXIST;}
     else{
-        $user = mysqli_fetch_array($query);
+        $user = mysqli_fetch_array($query); //email or user name exists , extract all the info to $user
         if($user['password']==$login_pass){ // checking password
-            $_SESSION['user_name'] =$user['user_name'];
+            $_SESSION['logged_in_user_id'] =$user['id']; // saves the logged in user name as a global identification key
             if($user['user_closed']=='yes'){ // setting user as connected
-                echo "in";
                 $query=query("UPDATE USERS SET USER_CLOSED = 'no' WHERE USER_NAME='{$user['user_name']}'");
             }
 
