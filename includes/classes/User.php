@@ -10,11 +10,6 @@
             $this->user_info =  mysqli_fetch_array($query);
         }
 
-        public function refresh_user_info(){
-            $query = query("SELECT * FROM users WHERE ID='$this->user_id'");
-            $this->user_info =  mysqli_fetch_array($query);
-        }
-
         public function getFirstAndLastName(){
             return $this->user_info["first_name"] . " " .$this->user_info["last_name"];
         }
