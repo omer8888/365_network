@@ -38,7 +38,10 @@
                 <textarea name="post_text" id="post_text" placeholder="What do you want to say?"></textarea>
                 <input type="submit" name="post" id="post_button" value="Post">
                 <hr>
+                <?php $user_obj->get_friends_posts(); ?>
             </form>
+
+
     </div>
 
 </div> <!-- /wrapper -->
