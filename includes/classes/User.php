@@ -1,6 +1,8 @@
 <?php
 
-    Class User{
+use Cassandra\Date;
+
+Class User{
         private $user_info;
         private $user_id;
 
@@ -62,49 +64,50 @@
                     $post_receiver_link = "<a href={$row['first_name']}>$receiver_full_name</a>";
                 }
 
-                $current_date = new DateTime(date("Y-m-d H:i:s"));
+                $current_date = new DateTime(date("Y-m-d H:i:s")); //Todo: solve date time issue - post time is not updating
                 $date_post = new DateTime($date_post);
                 $time_diff = $date_post->diff($current_date);
-
                 if ($time_diff->y >= 1) {
                     if ($time_diff == 1) {
                         $time_msg = $time_diff->y . "year ago";
                     } else {
                         $time_msg = $time_diff->y . "years ago";
                     }
-                } else if ($time_diff->m >= 1) {
+                }
+                if ($time_diff->m >= 1 ) {
                     if ($time_diff == 1) {
                         $time_msg = $time_diff->m . "month ago";
                     } else {
                         $time_msg = $time_diff->m . "months ago";
                     }
                 }
-                else if ($time_diff->d >= 1) {
+                if ($time_diff->d >= 1 ) {
                     if ($time_diff == 1) {
                         $time_msg = $time_diff->d . "day ago";
                     } else {
                         $time_msg = $time_diff->d . "days ago";
                     }
                 }
-                else if ($time_diff->h >= 1) {
+                if ($time_diff->h >= 1) {
                     if ($time_diff == 1) {
                         $time_msg = $time_diff->h . "hour ago";
                     } else {
                         $time_msg = $time_diff->h . "hours ago";
                     }
                 }
-                else if ($time_diff->i >= 1) {
+                if ($time_diff->i >= 1) {
                     if ($time_diff == 1) {
                         $time_msg = $time_diff->i . "minute ago";
                     } else {
                         $time_msg = $time_diff->i . "minutes ago";
                     }
                 }
-                else if ($time_diff->s < 30) {
+                if ($time_diff->s < 30) {
                     $time_msg = "just now";
                 } else {
                     $time_msg = $time_diff->s . "seconds ago";
                 }
+
 
                $post_html = " <div class='status_post'>
                                     <div class='post_profile_pic'>
@@ -112,7 +115,7 @@
                                     </div> 
                                     
                                     <div class='posted_by' style='color:#ACACAC;'>
-                                        <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; $time_msg
+                                        <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; {$time_msg}
                                     </div>   
                                     
                                     <div id='post_body'>
