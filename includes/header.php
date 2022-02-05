@@ -53,7 +53,7 @@ else{ // if user not logged in: redirect to register
             <a href="">
                 <i class="fa fa-cog fa-lg"></i>
             </a>
-            <a href="">
+            <a href="includes/handlers/logout.php">
                 <i class="fa fa-power-off fa-lg"></i>
             </a>
         </nav>

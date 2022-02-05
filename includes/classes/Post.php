@@ -13,7 +13,7 @@
         public function __construct($user_id,$body,$receiver_user_id='none',$deleted='no',$likes='0'){
             $this->user_obj = new User($user_id);
             $this->sender_user_id = $this->user_obj->get_user_id();
-            $this->body = strip_tags($body);;
+            $this->body = str_replace('\r\n', '<br>', strip_tags($body)); // strip html tags and support multiline posts text
             $this->receiver_user_id = $receiver_user_id;
             $this->deleted = $deleted;
             $this->likes = $likes;
