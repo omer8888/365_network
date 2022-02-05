@@ -1,8 +1,7 @@
 <?php
-
-if(isset($_POST['reg_submit'])) {
-    $_SESSION['reg_username'] = $reg_username = ucfirst(strtolower(strip_tags($_POST['reg_username'])));
-    $_SESSION['reg_fname'] = $reg_fname = ucfirst(strtolower(strip_tags($_POST['reg_fname']))); //remove html, lowercase for all input, keeping only first upper
+if(isset($_POST['reg_submit'])) { // if the register button clicked
+    $_SESSION['reg_username'] = $reg_username = ucfirst(strtolower(strip_tags($_POST['reg_username']))); //remove html, lowercase for all input, keeping only first upper
+    $_SESSION['reg_fname'] = $reg_fname = ucfirst(strtolower(strip_tags($_POST['reg_fname'])));          //saving on session in order to keep the value if there is error
     $_SESSION['reg_lname'] = $reg_lname = ucfirst(strtolower(strip_tags($_POST['reg_lname'])));
     $_SESSION['reg_email'] = $reg_email = ucfirst(strtolower(strip_tags($_POST['reg_email'])));
     $_SESSION['reg_email2'] = $reg_email2 = ucfirst(strtolower(strip_tags($_POST['reg_email2'])));
@@ -11,7 +10,7 @@ if(isset($_POST['reg_submit'])) {
     $reg_date = date("y/m/d");
     $_SESSION['reg_profile_pic'] = $reg_profile_pic = null;
 
-    $error_array = array();
+    $error_array = array(); // this is the register error array
 
     //-----Length Validation
     if(strlen($reg_username)<4 || strlen($reg_username)> 25){
@@ -49,14 +48,14 @@ if(isset($_POST['reg_submit'])) {
         array_push($error_array, EMAIL_EXIST);
     }
 
-    //verifing Username dosent exist
+    //------verifying Username hasten benn used
     $query = query("SELECT * FROM USERS WHERE USER_NAME='$reg_username'");
     confirm($query);
-    if ($num = mysqli_num_rows($query)!=0){ // username already exist adding number
+    if (mysqli_num_rows($query)!=0){ // username already exist adding number
         array_push($error_array, USERNAME_EXIST);
     }
 
-    $rand_profile_num = rand(1,8); // setting random profile photo
+    $rand_profile_num = rand(1,8); // setting random profile photo number
     $reg_profile_pic = "resources/images/profile_pics/defaults/default$rand_profile_num.png";
 
 
@@ -66,8 +65,8 @@ if(isset($_POST['reg_submit'])) {
         $query = query("INSERT INTO USERS (id,first_name,last_name,user_name,email,password,signup_date,profile_pic,num_posts,num_likes,user_closed,friend_array)
          VALUES ('', '{$reg_fname}', '{$reg_lname}', '{$reg_username}', '{$reg_email}', '{$reg_pass}', '{$reg_date}', '{$reg_profile_pic}', '0', '0', 'no', 'null')");
         confirm($query);
-        $reg_status = "completed";
-        clear_reg_sessions(); // cleaning the fields memory
+        $reg_status_completed = true;
+        clear_reg_sessions(); // cleaning the register form sessions
     }
 
 

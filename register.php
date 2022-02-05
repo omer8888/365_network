@@ -13,8 +13,8 @@ require_once("includes/form_handlers/login_handler.php");
     <script src="resources/js/register.js"></script> <!-- js file for the Login animation -->
 </head>
 <body>
-    <?php //keep the login form open in case there will be error using JS
-        if(isset($_POST['login_submit'])){
+    <?php
+        if(isset($_POST['login_submit'])){ //keep the login form open in case there will be login error using JS
             echo '
             <script>    
                     $(document).ready(function (){
@@ -28,10 +28,10 @@ require_once("includes/form_handlers/login_handler.php");
         <div class="register_box">
             <div class="register_header">
                 <h2>365 Network</h2>
-                Signup for free
+                <span id="register_first_line">Signup for free</span>
             </div>
 
-            <form action="" method="POST">
+            <form id="register_form" action="" method="POST">
                 <input type="text" name="reg_username" placeholder="User Name" value="<?php if(isset($_SESSION['reg_username'])) echo $_SESSION['reg_username']; ?>">
                 <div class="form_error">
                     <?php if(in_array( USERNAME_LENGTH, $error_array)) echo USERNAME_LENGTH; // checking if any of user name errors are in the form errors array
@@ -69,13 +69,23 @@ require_once("includes/form_handlers/login_handler.php");
                                 <?php if(in_array(PASS_NOT_MATCH, $error_array)) echo PASS_NOT_MATCH; ?>
                 </div>
 
-                <input type="submit" name="reg_submit" value="Register">
-                <?php if(isset($reg_status)){echo "<br><span style='color: #14CB00'>Signup completed!</span>"; } //presenting green msg after signup?>
+                <input type="submit" name="reg_submit" id="reg_submit" value="Register">
+                <?php if($reg_status_completed==true){ // if signup completed hiding the signup form
+                    echo '
+                        <script>    
+                            $("#register_form").hide();                        
+                            document.getElementById("register_first_line").innerHTML = "Signup completed!";
+                            document.getElementById("register_first_line").style.color = "#14CB00";                                                        
+                        </script>
+                          ';
+                } ?>
             </form>
 
 
             <div class="login_header">
-                <h3>Already a member?</h3>
+                <?php if(!isset($reg_status_completed)) // hiding "Already a member?" if user just finished signup
+                    echo '<h3 id="login_form_title">Already a member?</h3>';
+                ?>
                 <a href="#" id="already_a_member_link">Login to your account!</a>
             </div>
             <div id="login_form">
