@@ -49,6 +49,7 @@
             $query = query("SELECT * FROM POSTS WHERE DELETED = 'no' ORDER BY POST_ID DESC"); //TODO: now its all posts but should support only friend posts
             confirm($query);
             while ($row = mysqli_fetch_array($query)) {
+                $post_sender_obj = new user($row['sender_user_id']);
                 //$id = $row['post_id'];
                 $body = $row['body'];
                 $date_post = $row['date_post'];
@@ -92,19 +93,26 @@
                         $time_msg = $time_diff->h . "hours ago";
                     }
                 }
-                else if ($time_diff->i < 30) {
+                else if ($time_diff->i >= 1) {
+                    if ($time_diff == 1) {
+                        $time_msg = $time_diff->i . "minute ago";
+                    } else {
+                        $time_msg = $time_diff->i . "minutes ago";
+                    }
+                }
+                else if ($time_diff->s < 30) {
                     $time_msg = "just now";
                 } else {
-                    $time_msg = $time_diff->i . "seconds ago";
+                    $time_msg = $time_diff->s . "seconds ago";
                 }
 
                $post_html = " <div class='status_post'>
                                     <div class='post_profile_pic'>
-                                        <img src='{$this->user_info['profile_pic']}' width='45'>
+                                        <img src='{$post_sender_obj->user_info['profile_pic']}' width='45'>
                                     </div> 
                                     
                                     <div class='posted_by' style='color:#ACACAC;'>
-                                        <a href='{$this->user_info['user_name']}'> {$this->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; $time_msg
+                                        <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; $time_msg
                                     </div>   
                                     
                                     <div id='post_body'>
