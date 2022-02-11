@@ -24,7 +24,7 @@
 
         public function submitPost()
         {
-            if ($this->body != '') { //cant post empty status
+            if ($this->body != '') { //block empty status
                 if ($this->sender_user_id == $this->receiver_user_id) {
                     $this->receiver_user_id = "0";
                 }

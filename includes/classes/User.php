@@ -87,30 +87,30 @@ Class User{
 
                     // ----- calculating post time
 
-                    $current_date = new DateTime(); //Todo: solve date time issue - post time is not updating
-                    $current_date = new DateTime("2023-06-19 18:25:31");
+                    //$current_date = new DateTime(); //Todo: solve date time issue - post time is not updating
+                    $current_date = new DateTime("2022-02-11 16:25:31");
                     $date_post = new DateTime($date_post);
-                    $time_diff = $current_date->diff($date_post);
+                    $time_diff = $date_post->diff($current_date);
 
                     $time_set = false;
                     if (($time_diff->y >= 1)) {
-                        $time_msg = $time_diff->y . "years ago";
+                        $time_msg = $time_diff->y . " years ago";
                         $time_set = true;
                     }
                     if (($time_diff->m >= 1) && ($time_set == false)) {
-                            $time_msg = $time_diff->m . "months ago";
+                            $time_msg = $time_diff->m . " months ago";
                             $time_set = true;
                     }
                     if (($time_diff->d >= 1) && ($time_set == false)) {
-                            $time_msg = $time_diff->d . "days ago";
+                            $time_msg = $time_diff->d . " days ago";
                             $time_set = true;
                     }
                     if (($time_diff->h >= 1) && ($time_set == false)) {
-                            $time_msg = $time_diff->h . "hours ago";
+                            $time_msg = $time_diff->h . " hours ago";
                             $time_set = true;
                     }
                     if (($time_diff->i >= 1) && ($time_set == false)) {
-                            $time_msg = $time_diff->i . "minutes ago";
+                            $time_msg = $time_diff->i . " minutes ago";
                             $time_set = true;
                     }
                     if (($time_diff->s < 30) && ($time_set == false)) {
