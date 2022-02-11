@@ -24,6 +24,15 @@
         </div>
     </div>
 
+    <!-- user info box -->
+    <div class="groups_box column">
+        <div class="groups_box_text">
+            Hi <?php echo $user['user_name'] ?> <br>
+            here there will be your groups <br>
+            its still in progress
+        </div>
+    </div>
+
 
 <!-- main box -->
     <div class="main_box column">
@@ -33,7 +42,6 @@
                 <hr>
                 <div class="post_area"></div>
             </form>
-
 
         <img id='loading' src="resources/images/icons/loading.gif" width="60px">
     </div>

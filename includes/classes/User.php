@@ -119,7 +119,7 @@ Class User{
 
                         $str .= " <div class='status_post'>
                                         <div class='post_profile_pic'>
-                                            <img src='{$post_sender_obj->user_info['profile_pic']}' width='45'>
+                                            <img src='{$post_sender_obj->user_info['profile_pic']}' width='60'>
                                         </div> 
                                         
                                         <div class='posted_by' style='color:#ACACAC;'>
