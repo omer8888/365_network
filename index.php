@@ -38,11 +38,56 @@
                 <textarea name="post_text" id="post_text" placeholder="What do you want to say?"></textarea>
                 <input type="submit" name="post" id="post_button" value="Post">
                 <hr>
-                <?php $user_obj->get_friends_posts(); ?>
+                <div class="post_area"></div>
             </form>
 
 
+        <img id='loading' src="resources/images/icons/loading.gif" width="60px">
     </div>
+
+    <script> //scroll = more posts
+        var user_logged_in_id = "<?php echo $user_obj->get_user_info()["id"]; ?>" ;
+        $(document).ready(function(){
+           $('#loading').show();
+           $.ajax({
+              url: "includes/handlers/ajax_load_posts.php",
+              type: "POST",
+              data: "page=1&user_logged_in_id=" + user_logged_in_id,
+              cache: false,
+
+              success: function(data){
+                   $('#loading').hide();
+                   $('.post_area').html(data);
+              }
+           });
+
+           $(window).scroll(function (){
+              //var height = $('.post_area').height();
+              //var scroll_top = $(this).scrollTop();
+              var page = $('.post_area').find('.nextPage').val() ;
+              var no_more_posts = $('.post_area').find('.no_more_posts').val();
+               if((document.body.scrollHeight == (document.body.scrollTop + window.innerHeight))&& no_more_posts == 'false'){
+                  $('#loading').show();
+                  var ajax_request=  $.ajax({
+                                              url: "includes/handlers/ajax_load_posts.php",
+                                              type: "POST",
+                                              data: "page="+page+"&user_logged_in_id=" + user_logged_in_id,
+                                              cache: false,
+
+                                              success: function(response){
+                                                  $('.post_area').find('.nextPage').remove(); //remove current nextpage class
+                                                  $('.post_area').find('.no_more_posts').remove(); //remove current no_more_posts class
+                                                  $('#loading').hide();
+                                                  $('.post_area').append(response);
+                                              }
+                                            });
+              } // end if
+
+              return false
+           });
+
+        });
+    </script>
 
 </div> <!-- /wrapper -->
 </body>

@@ -44,94 +44,106 @@ Class User{
             confirm($query);
         }
 
-        public function get_friends_posts()
+        public function get_friends_posts($data, $limit)
         {
+            //$user_name = $this->get_user_info()["user_name"];
+            $page = $data['page'];
+
+            if ($page == 1)
+                $start = 0; //last post index
+            else
+                $start = ($page - 1) * $limit; //setting "start" into last post index
             $str = "";
 
             $query = query("SELECT * FROM POSTS WHERE DELETED = 'no' ORDER BY POST_ID DESC"); //TODO: now its all posts but should support only friend posts
             confirm($query);
-            while ($row = mysqli_fetch_array($query)) {
-                $post_sender_obj = new user($row['sender_user_id']);
-                //$id = $row['post_id'];
-                $body = $row['body'];
-                $date_post = $row['date_post'];
-                //$likes = $row['likes'];
-                $post_receiver_link='';
 
-                if ($row['receiver_user_id'] != '0') { // if there is a receiver
-                    $receiver_obj = new User($row['receiver_user_id']);
-                    $receiver_full_name = $receiver_obj->getFirstAndLastName();
-                    $post_receiver_link = "<a href={$row['first_name']}>$receiver_full_name</a>";
-                }
+            if (mysqli_num_rows($query) > 0) {
+                $num_iterations = 0;
+                $count = 1;
 
-                $current_date = new DateTime(date("Y-m-d H:i:s")); //Todo: solve date time issue - post time is not updating
-                $date_post = new DateTime($date_post);
-                $time_diff = $date_post->diff($current_date);
-                if ($time_diff->y >= 1) {
-                    if ($time_diff == 1) {
-                        $time_msg = $time_diff->y . "year ago";
+                while ($row = mysqli_fetch_array($query)) { // running on all the posts
+                    $post_sender_obj = new user($row['sender_user_id']);
+                    //$id = $row['post_id'];
+                    $body = $row['body'];
+                    $date_post = $row['date_post'];
+                    //$likes = $row['likes'];
+                    $post_receiver_link = '';
+
+                    if ($row['receiver_user_id'] != '0') { // if there is a receiver
+                        $receiver_obj = new User($row['receiver_user_id']);
+                        $receiver_full_name = $receiver_obj->getFirstAndLastName();
+                        $post_receiver_link = "<a href={$row['first_name']}>$receiver_full_name</a>";
+                    }
+
+                    if ($num_iterations++ < $start) //skipping all the posts that already on screen
+                        continue;
+
+                    if ($count > $limit) { //showing posts until the limit
+                        break;
                     } else {
+                        $count++;
+                    }
+
+                    // ----- calculating post time
+
+                    $current_date = new DateTime(); //Todo: solve date time issue - post time is not updating
+                    $current_date = new DateTime("2023-06-19 18:25:31");
+                    $date_post = new DateTime($date_post);
+                    $time_diff = $current_date->diff($date_post);
+
+                    $time_set = false;
+                    if (($time_diff->y >= 1)) {
                         $time_msg = $time_diff->y . "years ago";
+                        $time_set = true;
                     }
-                }
-                if ($time_diff->m >= 1 ) {
-                    if ($time_diff == 1) {
-                        $time_msg = $time_diff->m . "month ago";
-                    } else {
-                        $time_msg = $time_diff->m . "months ago";
+                    if (($time_diff->m >= 1) && ($time_set == false)) {
+                            $time_msg = $time_diff->m . "months ago";
+                            $time_set = true;
                     }
-                }
-                if ($time_diff->d >= 1 ) {
-                    if ($time_diff == 1) {
-                        $time_msg = $time_diff->d . "day ago";
-                    } else {
-                        $time_msg = $time_diff->d . "days ago";
+                    if (($time_diff->d >= 1) && ($time_set == false)) {
+                            $time_msg = $time_diff->d . "days ago";
+                            $time_set = true;
                     }
-                }
-                if ($time_diff->h >= 1) {
-                    if ($time_diff == 1) {
-                        $time_msg = $time_diff->h . "hour ago";
-                    } else {
-                        $time_msg = $time_diff->h . "hours ago";
+                    if (($time_diff->h >= 1) && ($time_set == false)) {
+                            $time_msg = $time_diff->h . "hours ago";
+                            $time_set = true;
                     }
-                }
-                if ($time_diff->i >= 1) {
-                    if ($time_diff == 1) {
-                        $time_msg = $time_diff->i . "minute ago";
-                    } else {
-                        $time_msg = $time_diff->i . "minutes ago";
+                    if (($time_diff->i >= 1) && ($time_set == false)) {
+                            $time_msg = $time_diff->i . "minutes ago";
+                            $time_set = true;
                     }
-                }
-                if ($time_diff->s < 30) {
-                    $time_msg = "just now";
-                } else {
-                    $time_msg = $time_diff->s . "seconds ago";
-                }
+                    if (($time_diff->s < 30) && ($time_set == false)) {
+                            $time_msg = "just now";
+                    }
 
+                        $str .= " <div class='status_post'>
+                                        <div class='post_profile_pic'>
+                                            <img src='{$post_sender_obj->user_info['profile_pic']}' width='45'>
+                                        </div> 
+                                        
+                                        <div class='posted_by' style='color:#ACACAC;'>
+                                            <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; {$time_msg}
+                                        </div>   
+                                        
+                                        <div id='post_body'>
+                                            $body
+                                            <br>
+                                        </div>     
+                                  </div>    
+                                  <hr>                        
+                                ";
+                    }
+                    if ($count > $limit) {
+                        $str .= "<input type ='hidden' class='nextPage' value='" . ($page + 1) . "'>
+                            <input type ='hidden' class='no_more_posts' value='false'>";
+                    } else {
+                        $str .= "<input type ='hidden' class='no_more_posts' value='true'><p style='text-align: center;'>No more posts to show</p>";
+                    }
 
-               $post_html = " <div class='status_post'>
-                                    <div class='post_profile_pic'>
-                                        <img src='{$post_sender_obj->user_info['profile_pic']}' width='45'>
-                                    </div> 
-                                    
-                                    <div class='posted_by' style='color:#ACACAC;'>
-                                        <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; {$time_msg}
-                                    </div>   
-                                    
-                                    <div id='post_body'>
-                                        $body
-                                        <br>
-                                    </div>     
-                              </div>    
-                              <hr>                        
-                            ";
-                echo $post_html;
+                    echo $str;
+                }
             }
-
-
-        }
-
-
 
     }
 ?>
