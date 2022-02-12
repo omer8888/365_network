@@ -6,20 +6,17 @@ function get_connection(){
 }
 
 function query($sql){
-    global $connection;
-    return mysqli_query($connection, $sql);
+    return mysqli_query(get_connection(), $sql);
 }
 
 function confirm($result){
-    global $connection;
     if(!$result){
-        die("query failed with error:  ". mysqli_error($connection));
+        die("query failed with error:  ". mysqli_error(get_connection()));
     }
 }
 
 function get_last_id(){
-    global $connection;
-    return mysqli_insert_id($connection);
+    return mysqli_insert_id(get_connection());
 }
 
 function redirect($location){

@@ -44,10 +44,10 @@ Class User{
             confirm($query);
         }
 
-        public function get_friends_posts($data, $limit)
+        public function get_friends_posts($ajax_req, $limit)
         {
             //$user_name = $this->get_user_info()["user_name"];
-            $page = $data['page'];
+            $page = $ajax_req['page'];
 
             if ($page == 1)
                 $start = 0; //last post index

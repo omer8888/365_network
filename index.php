@@ -1,7 +1,7 @@
 <?php
-    require("includes/header.php");
-    require("includes/classes/Post.php");
-    require("includes/form_handlers/post_handler.php");
+    require_once("includes/header.php");
+    require_once("includes/classes/Post.php");
+    require_once("includes/form_handlers/post_handler.php");
     global $user_obj; // to be able to use the logged in user object
 ?>
 
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <!-- user info box -->
+    <!-- groups info box -->
     <div class="groups_box column">
         <div class="groups_box_text">
             Hi <?php echo $user['user_name'] ?> <br>
@@ -56,18 +56,16 @@
               data: "page=1&user_logged_in_id=" + user_logged_in_id,
               cache: false,
 
-              success: function(data){
+              success: function(response){
                    $('#loading').hide();
-                   $('.post_area').html(data);
+                   $('.post_area').html(response);
               }
            });
 
            $(window).scroll(function (){
-              //var height = $('.post_area').height();
-              //var scroll_top = $(this).scrollTop();
               var page = $('.post_area').find('.nextPage').val() ;
               var no_more_posts = $('.post_area').find('.no_more_posts').val();
-               if((document.body.scrollHeight == (document.body.scrollTop + window.innerHeight))&& no_more_posts == 'false'){
+              if((document.body.scrollHeight == (document.body.scrollTop + window.innerHeight))&& no_more_posts == 'false'){
                   $('#loading').show();
                   var ajax_request=  $.ajax({
                                               url: "includes/handlers/ajax_load_posts.php",

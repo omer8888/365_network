@@ -2,7 +2,7 @@
 error_reporting(E_ERROR | E_PARSE); //Only report fatal errors and parse errors.
 ob_start(); //turn on output buffering
 session_start();
-//session_destroy();
+
 $timezone = date_default_timezone_set("Europe/London");
 
 defined("DB_HOST") ? null : define("DB_HOST", "localhost");

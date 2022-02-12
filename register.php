@@ -1,5 +1,5 @@
 <?php
-require_once("resources/config.php");
+require_once("resources/config.php"); //connection setup
 require_once("resources/errors_msgs.php");
 require_once("includes/form_handlers/register_handler.php");
 require_once("includes/form_handlers/login_handler.php");
@@ -7,7 +7,7 @@ require_once("includes/form_handlers/login_handler.php");
 
 <html>
 <head>
-    <title>Register to 365 Network</title>
+    <title>Register 365 Network</title>
     <link rel="stylesheet" href="resources/css/register_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="resources/js/register.js"></script> <!-- js file for the Login animation -->
@@ -70,7 +70,7 @@ require_once("includes/form_handlers/login_handler.php");
                 </div>
 
                 <input type="submit" name="reg_submit" id="reg_submit" value="Register">
-                <?php if($reg_status_completed==true){ // if signup completed hiding the signup form
+                <?php if($reg_status_completed==true){ // if signup completed hiding the signup form ad showing complete msg
                     echo '
                         <script>    
                             $("#register_form").hide();                        
@@ -79,7 +79,7 @@ require_once("includes/form_handlers/login_handler.php");
                         </script>
                           ';
                 } ?>
-            </form>
+            </form> <!-- end of register form -->
 
 
             <div class="login_header">
