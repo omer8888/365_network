@@ -70,12 +70,17 @@ require_once("includes/form_handlers/login_handler.php");
                 </div>
 
                 <input type="submit" name="reg_submit" id="reg_submit" value="Register">
-                <?php if($reg_status_completed==true){ // if signup completed hiding the signup form ad showing complete msg
+                <?php if ($reg_status_completed == true) { // if signup completed: hiding the signup form ,showing green complete msg, showing the login form
                     echo '
                         <script>    
                             $("#register_form").hide();                        
                             document.getElementById("register_first_line").innerHTML = "Signup completed!";
-                            document.getElementById("register_first_line").style.color = "#14CB00";                                                        
+                            document.getElementById("register_first_line").style.color = "#14CB00";   
+                                           
+                            $(document).ready(function (){
+                                $("#login_form").show();
+                            });
+            
                         </script>
                           ';
                 } ?>

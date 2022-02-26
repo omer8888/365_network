@@ -7,35 +7,35 @@
 
 <!-- user info box -->
     <div class="user_details_box column">
-        <a href="<?php echo $user['user_name']; ?>">
-            <img src="<?php echo $user['profile_pic'];?>">
+        <a href="<?php echo $user_obj->get_username(); ?>">
+            <img src="<?php echo $user_obj->get_profile_pic();?>">
         </a>
 
         <div class="user_details_box_text">
-            <b><a href="<?php echo $user['user_name'] ?>">
-                <?php echo $user_obj->getFirstAndLastName(); ?>
-            </a></b>
+            <b><a href="<?php echo $user_obj->get_username(); ?>"><?php echo $user_obj->getFirstAndLastName(); ?> </a></b>
             <br>
             <?php  echo "Posts : ".$user_obj->get_user_posts_num(); ?>
             <br>
-            <?php  echo "Likes : ".$user_obj->get_user_likes_num();  ?>
+            <?php  echo "Likes : ".$user_obj->get_likes_num();  ?>
             <br>
-            <?php  echo "Since : ".$user['signup_date']."";  ?>
+            <?php  echo "Since : ".$user_obj->get_signup_date();  ?>
         </div>
     </div>
 
-    <!-- groups info box -->
+<!-- groups info box -->
     <div class="groups_box column">
         <div class="groups_box_text">
-            Hi <?php echo $user['user_name'] ?> <br>
+            Hi <?php echo $user_obj->get_first_name(); ?> <br>
             here there will be your groups <br>
             its still in progress
+            <?php echo $user_obj->is_friend(4); ?>
         </div>
     </div>
 
 
 <!-- main box -->
     <div class="main_box column">
+            <!-- post feature -->
             <form class="post_form" action="index.php" method="POST">
                 <textarea name="post_text" id="post_text" placeholder="What do you want to say?"></textarea>
                 <input type="submit" name="post_status" id="post_button" value="Post">
@@ -46,8 +46,10 @@
         <img id='loading' src="resources/images/icons/loading.gif" width="60px">
     </div>
 
-    <script> //scroll = more posts
-        var user_logged_in_id = "<?php echo $user_obj->get_user_info()["id"]; ?>" ;
+
+    <script> //show posts feature
+        var user_logged_in_id = "<?php echo $user_obj->get_user_id(); ?>" ;
+        //first LIMIT posts load up
         $(document).ready(function(){
            $('#loading').show();
            $.ajax({
@@ -62,6 +64,7 @@
               }
            });
 
+            //scroll = more posts
            $(window).scroll(function (){
               var page = $('.post_area').find('.nextPage').val() ;
               var no_more_posts = $('.post_area').find('.no_more_posts').val();

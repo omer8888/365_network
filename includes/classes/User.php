@@ -12,10 +12,6 @@ Class User{
             $this->user_info =  mysqli_fetch_array($query);
         }
 
-        public function getFirstAndLastName(){
-            return $this->user_info["first_name"] ." ".$this->user_info["last_name"];
-        }
-
         public function get_user_info(){
             return $this->user_info;
         }
@@ -24,18 +20,55 @@ Class User{
             return $this->user_id;
         }
 
-        public function get_user_posts_num(){
+
+    public function getFirstAndLastName(){
+            return $this->user_info["first_name"] ." ".$this->user_info["last_name"];
+        }
+
+        public function get_first_name(){
+            return $this->user_info["first_name"];
+        }
+
+        public function get_last_name(){
+            return $this->user_info["last_name"];
+        }
+
+        public function get_username(){
+            return $this->user_info["user_name"];
+        }
+
+        public function get_email(){
+            return $this->user_info["email"];
+        }
+
+        public function get_password(){
+            return $this->user_info["password"];
+        }
+
+        public function get_signup_date(){
+            return $this->user_info["signup_date"];
+        }
+
+        public function get_profile_pic(){
+            return $this->user_info["profile_pic"];
+        }
+
+        public function get_friends_array(){
+            $string= $this->user_info["friends_array"];
+            return explode (",", $string);
+        }
+
+        public function get_user_posts_num(){ //in order to get update num, im taking it from the dm and not the user obj
             $query = query("SELECT NUM_POSTS FROM USERS WHERE ID='{$this->get_user_id()}'");
             $row = mysqli_fetch_array($query);
             return $row[0];
         }
 
-        public function get_user_likes_num(){
+        public function get_likes_num(){
             $query = query("SELECT NUM_LIKES FROM USERS WHERE ID='{$this->get_user_id()}'");
             $row = mysqli_fetch_array($query);
             return $row[0];
         }
-
 
         public function update_user_posts_count(){
             $new_post_num = $this->get_user_posts_num() + 1 ;
@@ -44,13 +77,17 @@ Class User{
             confirm($query);
         }
 
+        public function is_friend($user_id){
+            $friends_array = $this->get_friends_array();
+            return in_array($user_id, $friends_array) || ($user_id == $this->get_user_id()); //im friend of myself
+        }
+
         public function get_friends_posts($ajax_req, $limit)
         {
-            //$user_name = $this->get_user_info()["user_name"];
             $page = $ajax_req['page'];
 
-            if ($page == 1)
-                $start = 0; //last post index
+            if ($page == 1) //each "page" is a LIMIT number of posts loaded
+                $start = 0; //post index
             else
                 $start = ($page - 1) * $limit; //setting "start" into last post index
             $str = "";
@@ -76,74 +113,78 @@ Class User{
                         $post_receiver_link = "<a href={$row['first_name']}>$receiver_full_name</a>";
                     }
 
-                    if ($num_iterations++ < $start) //skipping all the posts that already on screen
-                        continue;
+                    if ($this->is_friend($post_sender_obj->get_user_id())) { //showing only friends posts
 
-                    if ($count > $limit) { //showing posts until the limit
-                        break;
-                    } else {
-                        $count++;
-                    }
+                        if ($num_iterations++ < $start) //skipping all the posts that already on screen
+                            continue;
 
-                    // ----- calculating post time
+                        if ($count > $limit) { //showing posts until the limit
+                            break;
+                        } else {
+                            $count++;
+                        }
 
-                    //$current_date = new DateTime(); //Todo: solve date time issue - post time is not updating
-                    $current_date = new DateTime("2022-02-11 16:25:31");
-                    $date_post = new DateTime($date_post);
-                    $time_diff = $date_post->diff($current_date);
+                        // ----- calculating post time
 
-                    $time_set = false;
-                    if (($time_diff->y >= 1)) {
-                        $time_msg = $time_diff->y . " years ago";
-                        $time_set = true;
-                    }
-                    if (($time_diff->m >= 1) && ($time_set == false)) {
+                        //$current_date = new DateTime(); //Todo: solve date time issue - post time is not updating
+                        $current_date = new DateTime("2022-02-11 16:25:31");
+                        $date_post = new DateTime($date_post);
+                        $time_diff = $date_post->diff($current_date);
+
+                        $time_set = false;
+                        if (($time_diff->y >= 1)) {
+                            $time_msg = $time_diff->y . " years ago";
+                            $time_set = true;
+                        }
+                        if (($time_diff->m >= 1) && ($time_set == false)) {
                             $time_msg = $time_diff->m . " months ago";
                             $time_set = true;
-                    }
-                    if (($time_diff->d >= 1) && ($time_set == false)) {
+                        }
+                        if (($time_diff->d >= 1) && ($time_set == false)) {
                             $time_msg = $time_diff->d . " days ago";
                             $time_set = true;
-                    }
-                    if (($time_diff->h >= 1) && ($time_set == false)) {
+                        }
+                        if (($time_diff->h >= 1) && ($time_set == false)) {
                             $time_msg = $time_diff->h . " hours ago";
                             $time_set = true;
-                    }
-                    if (($time_diff->i >= 1) && ($time_set == false)) {
+                        }
+                        if (($time_diff->i >= 1) && ($time_set == false)) {
                             $time_msg = $time_diff->i . " minutes ago";
                             $time_set = true;
-                    }
-                    if (($time_diff->s < 30) && ($time_set == false)) {
+                        }
+                        if (($time_diff->s < 30) && ($time_set == false)) {
                             $time_msg = "just now";
-                    }
+                        }
 
                         $str .= " <div class='status_post'>
-                                        <div class='post_profile_pic'>
-                                            <img src='{$post_sender_obj->user_info['profile_pic']}' width='60'>
-                                        </div> 
-                                        
-                                        <div class='posted_by' style='color:#ACACAC;'>
-                                            <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; {$time_msg}
-                                        </div>   
-                                        
-                                        <div id='post_body'>
-                                            $body
-                                            <br>
-                                        </div>     
-                                  </div>    
-                                  <hr>                        
-                                ";
+                                            <div class='post_profile_pic'>
+                                                <img src='{$post_sender_obj->user_info['profile_pic']}' width='60'>
+                                            </div> 
+                                            
+                                            <div class='posted_by' style='color:#ACACAC;'>
+                                                <a href='{$post_sender_obj->user_info['user_name']}'> {$post_sender_obj->getFirstAndLastName()} </a> $post_receiver_link &nbsp;&nbsp;&nbsp;&nbsp; {$time_msg}
+                                            </div>   
+                                            
+                                            <div id='post_body'>
+                                                $body
+                                                <br>
+                                            </div>     
+                                      </div>    
+                                      <hr>                        
+                                    ";
                     }
+                }
                     if ($count > $limit) {
                         $str .= "<input type ='hidden' class='nextPage' value='" . ($page + 1) . "'>
-                            <input type ='hidden' class='no_more_posts' value='false'>";
+                                <input type ='hidden' class='no_more_posts' value='false'>";
                     } else {
                         $str .= "<input type ='hidden' class='no_more_posts' value='true'><p style='text-align: center;'>No more posts to show</p>";
                     }
 
                     echo $str;
                 }
-            }
+
+        }
 
     }
 ?>

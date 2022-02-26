@@ -48,22 +48,23 @@ if(isset($_POST['reg_submit'])) { // if the register button clicked
         array_push($error_array, EMAIL_EXIST);
     }
 
-    //------verifying Username hasten benn used
+    //------verifying Username hasten been used
     $query = query("SELECT * FROM USERS WHERE USER_NAME='$reg_username'");
     confirm($query);
-    if (mysqli_num_rows($query)!=0){ // username already exist adding number
+    if (mysqli_num_rows($query)!=0){ // username already exist
         array_push($error_array, USERNAME_EXIST);
     }
 
-    $rand_profile_num = rand(1,8); // setting random profile photo number
-    $reg_profile_pic = "resources/images/profile_pics/defaults/default$rand_profile_num.png";
 
-
-    //inserting the user info to the DB
+    //choosing photo, Encrypting pass and inserting the user info to the DB
     if(empty($error_array)){
+        $rand_profile_num = rand(1,8); // setting random profile photo number
+        $reg_profile_pic = "resources/images/profile_pics/defaults/default$rand_profile_num.png";
+
         $reg_pass = md5($reg_pass); // Encrypt the pass
-        $query = query("INSERT INTO USERS (id,first_name,last_name,user_name,email,password,signup_date,profile_pic,num_posts,num_likes,user_closed,friend_array)
-         VALUES ('', '{$reg_fname}', '{$reg_lname}', '{$reg_username}', '{$reg_email}', '{$reg_pass}', '{$reg_date}', '{$reg_profile_pic}', '0', '0', 'no', 'null')");
+
+        $query = query("INSERT INTO USERS (id,first_name,last_name,user_name,email,password,signup_date,profile_pic,num_posts,num_likes,user_closed,friends_array)
+         VALUES ('', '{$reg_fname}', '{$reg_lname}', '{$reg_username}', '{$reg_email}', '{$reg_pass}', '{$reg_date}', '{$reg_profile_pic}', '0', '0', 'no', ',')");
         confirm($query);
         $reg_status_completed = true;
         clear_reg_sessions(); // cleaning the register form sessions
