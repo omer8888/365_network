@@ -125,8 +125,9 @@ Class User{
                         }
 
     ?>
-                        <script> <!-- showing comment section only when clicking on a post -->
+                        <script>
                             function toggle<?php echo $id ?>(){
+                                //alert("in");
                                 var element = document.getElementById("toggleComment<?php echo $id ?>");
                                 if (element.style.display == "block")
                                     element.style.display = "none";
@@ -182,7 +183,6 @@ Class User{
                                                 <br>
                                             </div>     
                                       </div> 
-                                      <!-- comment on a post section -->
                                       <div class='post_comment' id='toggleComment$id' style='display:none'>
                                         <iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
                                       </div>  
