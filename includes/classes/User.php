@@ -101,7 +101,7 @@ Class User{
 
                 while ($row = mysqli_fetch_array($query)) { // running on all the posts
                     $post_sender_obj = new user($row['sender_user_id']);
-                    //$id = $row['post_id'];
+                    $id = $row['post_id'];
                     $body = $row['body'];
                     $date_post = $row['date_post'];
                     //$likes = $row['likes'];
@@ -124,6 +124,19 @@ Class User{
                             $count++;
                         }
 
+    ?>
+                        <script>
+                            function toggle<?php echo $id ?>(){
+                                //alert("in");
+                                var element = document.getElementById("toggleComment<?php echo $id ?>");
+                                if (element.style.display == "block")
+                                    element.style.display = "none";
+                                else
+                                    element.style.display = "block";
+                            }
+                        </script>
+
+    <?php
                         // ----- calculating post time
 
                         //$current_date = new DateTime(); //Todo: solve date time issue - post time is not updating
@@ -156,7 +169,7 @@ Class User{
                             $time_msg = "just now";
                         }
 
-                        $str .= " <div class='status_post'>
+                        $str .= " <div class='status_post' onClick='javascript:toggle$id()'>
                                             <div class='post_profile_pic'>
                                                 <img src='{$post_sender_obj->user_info['profile_pic']}' width='60'>
                                             </div> 
@@ -169,7 +182,10 @@ Class User{
                                                 $body
                                                 <br>
                                             </div>     
-                                      </div>    
+                                      </div> 
+                                      <div class='post_comment' id='toggleComment$id' style='display:none'>
+                                        <iframe src='comment_frame.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
+                                      </div>  
                                       <hr>                        
                                     ";
                     }
@@ -188,6 +204,3 @@ Class User{
 
     }
 ?>
-
-
-
