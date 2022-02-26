@@ -58,7 +58,7 @@
             $receiver_user_id = $this->get_receiver_user_id();
             $comment_date = date("Y-m-d H:i:s");
             $query = query("INSERT INTO COMMENTS (comment_id,comment_body,sender_user_id,receiver_user_id,comment_date,removed,post_id)
-                VALUES ('', '{$body}', '{$sender_user_id}', '{$receiver_user_id}', '{$comment_date}', '{$deleted}', '{post_id}')");
+                VALUES ('', '{$body}', '{$sender_user_id}', '{$receiver_user_id}', '{$comment_date}', 'no', '{post_id}')");
             confirm($query);
         }
 
