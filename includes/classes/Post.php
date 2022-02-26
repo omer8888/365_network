@@ -20,6 +20,12 @@
             $this->deleted = $deleted;
             $this->likes = $likes;
             $this->post_date = date("Y-m-d H:i:s");;
+
+        }
+
+        public static function get_post_info($post_id){
+            $query = query("SELECT * FROM posts WHERE post_id ='$post_id'");
+            return mysqli_fetch_array($query);
         }
 
         public function submitPost()
