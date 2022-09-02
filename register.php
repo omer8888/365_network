@@ -1,6 +1,6 @@
 <?php
 require_once("resources/config.php"); //connection setup
-require_once("resources/errors_msgs.php");
+require_once("resources/errors_msgs_copies_define.php");
 require_once("includes/form_handlers/register_handler.php");
 require_once("includes/form_handlers/login_handler.php");
 ?>
@@ -12,6 +12,7 @@ require_once("includes/form_handlers/login_handler.php");
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="resources/js/register.js"></script> <!-- js file for the Login animation -->
 </head>
+
 <body>
     <?php
         if(isset($_POST['login_submit'])){ //keep the login form open in case there will be login error using JS
@@ -24,6 +25,7 @@ require_once("includes/form_handlers/login_handler.php");
             ';
         }
     ?>
+
     <div class="wrapper">
         <div class="register_box">
             <div class="register_header">
@@ -93,6 +95,7 @@ require_once("includes/form_handlers/login_handler.php");
                 ?>
                 <a href="#" id="already_a_member_link">Login to your account!</a>
             </div>
+
             <div id="login_form">
                 <form action="" method="POST">
                     <input type="text" name="login_email_or_username" placeholder="Email/Username" required value="<?php if(isset($_SESSION['login_email_or_username'])) echo $_SESSION['login_email_or_username']; ?>">
@@ -103,6 +106,7 @@ require_once("includes/form_handlers/login_handler.php");
                     <div class="form_error"><?php if(isset($login_error)){echo $login_error; } ?></div>
                 </form>
             </div>
+
         </div>
     </div>
 </body>

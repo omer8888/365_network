@@ -9,9 +9,9 @@ in the future ill create profiles, statuses, comments, likes, friends, inboxs. a
 <h3>Sign up:</h3>
 basic form, <br>
 clicking on submit sending post request to the same page <br>
-which requiring the "register_handler.php", which doing all the server side magic: <br>
+which requiring the "register_handler.php", that is doing all the server side magic: <br>
 verify errors, <br>
-entering the user detail to the USERS table, <br>
+entering the user details to the USERS table, <br>
 db connection defined in "config.php" which is required in the "register.php" <br>
 inserting the info into users table using mysqli sql query. <br>
 passwords are encrypted using md5 <br>
@@ -25,7 +25,7 @@ passwords are encrypted using md5 <br>
 
 
 <h3>Error handling:</h3>
-errors copy are constant strings in "error_msgs.php" <br>
+errors copies are constant strings defined on "error_msgs.php" <br>
 in case there is error im inserting the error string into error_array, <br>
 in the html form im checking in each input if the relevant error exists in the error_array <br>
 if yes: presenting the error, (which has specific css class for style) <br>
@@ -49,7 +49,7 @@ im inserting the user inputs into the db <br>
 <h3>Login form </h3>
 clicking on login submit sending post request to the same page <br>
 which requiring the "login_handler.php", which doing all the server side login magic: <br>
-verifys the username/email exists <br>
+verify the username/email exists <br>
 if not exists sets $login_error into the relevant error <br>
 (errors strings are constant from "errors_msgs.php")
 then the HTML login form loads we verify if there is error by checking if $login_error is set <br>
@@ -59,5 +59,5 @@ we extract this user info (db row)<br>
 we verify the passwords are the same<br>
 (passwords are encrypted md5) <br>
 
-<h3>abit about the register css</h3>
-fonts, background photo are on the resources folder. <br>
+<h3>info about the register css</h3>
+fonts, background photo are on the resources' folder. <br>

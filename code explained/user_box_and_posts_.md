@@ -3,7 +3,7 @@
 
 
 <h2>index page:</h2>
-splitted the page into 3 sections for now: <br>
+split the page into 3 sections for now: <br>
 1) top nav: which has logo on the left, and some menu buttons on the right (bootstrap.js)<br>
 2) main section: that will contain friends news and post status feature <br>
 3) user profile section: that contains logged in user info: name, photo, posts num, likes num, signup date.<br>
@@ -20,9 +20,9 @@ which is destroying the session and redirect to register page <br>
 
 
 <h3>header.php </h3>
-header file in been requered_once all over the site<br>
+header file is been required_once all over the site<br>
 it includes the Top nav code,<br>
-and transform the logged in user id (session) into user object.<br>
+and transform the logged-in user id (session) into user object.<br>
 
 <h3>"User" class explained</h3>
 user class helps access/edit info from users "table"<br>
@@ -48,12 +48,12 @@ get_friends_posts: running all over "posts" table and return every post in a sty
 <h3>Logged-in user profile section:</h3>
 The left box which contain logged in user basic info<br>
 using the header, im creating the logged in user object (from the logged in id session)<br>
-now that i have the user obj i cac get all his info and display it styled on the user profile section<br>
+now that i have the user obj i can get all his info and display it styled on the user profile section<br>
 posts num, likes num, user photo, date of sign up<br>
 
 <h2>Main section: news and Post status feature</h2>
 created input text in a form with post method<br>
-clicking on post will call "post_handeler":<br>
+clicking on post will call "post_handler":<br>
 which is checking post request with "post_status" name<br>
 and when this variable is set we create post object<br>
 
