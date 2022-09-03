@@ -8,7 +8,7 @@
 <!-- user info box -->
     <div class="user_details_box column">
         <a href="<?php echo $user_obj->get_username(); ?>">
-            <img src="<?php echo $user_obj->get_profile_pic();?>">
+            <img src="<?php echo DOMAIN.$user_obj->user_info['profile_pic']();?>">
         </a>
 
         <div class="user_details_box_text">

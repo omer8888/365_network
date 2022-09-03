@@ -50,7 +50,7 @@ Class User{
         }
 
         public function get_profile_pic(){
-            return DOMAIN.$this->user_info["profile_pic"];
+            return $this->user_info["profile_pic"];
         }
 
         public function get_friends_array(){
